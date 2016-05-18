@@ -1,4 +1,6 @@
+from __future__ import absolute_import
 import requests
+from . import models
 
 
 class Client:
@@ -9,3 +11,12 @@ class Client:
     def get_headers(self):
         return {"Content-Type": "application/json",
                 "Authorization": "Token %s" % self.token}
+
+    def get_object_list(self, modelcls, **filters):
+        url = self.url + modelcls.API_ENDPOINT
+        r = requests.get(url, params=filters, headers=self.get_headers())
+        data = r.json()
+        meta = data['meta']
+        objects = data['data']
+
+        return models.ModelList(self, meta, objects, modelcls)

@@ -13,7 +13,8 @@ class TestCommand(Command):
     def run(self):
         import unittest
 
-        modules = ['ureactme.tests.test_client']
+        modules = ['ureactme.tests.test_client',
+                   'ureactme.tests.test_models']
         suite = unittest.TestSuite()
         suite.addTests(unittest.defaultTestLoader.loadTestsFromNames(modules))
         unittest.TextTestRunner().run(suite)
