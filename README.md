@@ -1,5 +1,9 @@
 # UReact.me Python client
 
+## Instalation
+
+It's on pip. Just `pip install ureactme` and it's done.
+
 ## Usage
 
 ```python

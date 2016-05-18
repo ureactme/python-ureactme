@@ -19,15 +19,22 @@ class TestCommand(Command):
         suite.addTests(unittest.defaultTestLoader.loadTestsFromNames(modules))
         unittest.TextTestRunner().run(suite)
 
+long_description = "Client library for ureact.me API service"
+
+try:
+    long_description = open("README.md").read()
+except:
+    pass
+
 setup(name='ureactme',
-      version='0.1.0',
+      version='0.1.2',
       packages=['ureactme', ],
       license='MIT',
       author='Thiago F. Pappacena',
       author_email='pappacena@gmail.com',
       url='https://github.com/pappacena/',
       description='UReact.me API lib',
-      long_description=open("README.md").read(),
+      long_description=long_description,
       install_requires=['setuptools>=17.1', 'requests',
                         'mock', 'freezegun>=0.3.5'],
       tests_require=['freezegun>=0.3.5'],
