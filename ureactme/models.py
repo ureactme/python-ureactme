@@ -5,10 +5,11 @@ class Model:
 
 
 class ModelList:
-    def __init__(self, client, meta, objects, modelcls):
+    def __init__(self, client, filters, payload, modelcls):
         self.client = client
-        self.meta = meta
-        self.objects = objects
+        self.filters = filters
+        self.meta = payload['meta']
+        self.objects = payload['data']
         self.modelcls = modelcls
 
     def __len__(self):
@@ -20,6 +21,13 @@ class ModelList:
             if i < len(self.objects):
                 yield self.modelcls(**self.objects[i])
                 i += 1
+            elif self.meta['page'] < self.meta['total_pages']:
+                # get next page
+                filters = self.filters.copy()
+                filters['page'] = self.meta['page'] + 1
+                for k in self.client.get_object_list(self.modelcls, **filters):
+                    yield k
+                break
             else:
                 break
 

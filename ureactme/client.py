@@ -16,7 +16,5 @@ class Client:
         url = self.url + modelcls.API_ENDPOINT
         r = requests.get(url, params=filters, headers=self.get_headers())
         data = r.json()
-        meta = data['meta']
-        objects = data['data']
 
-        return models.ModelList(self, meta, objects, modelcls)
+        return models.ModelList(self, filters, data, modelcls)
