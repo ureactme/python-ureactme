@@ -36,6 +36,23 @@ class Client(object):
         if r.status_code > 299 or r.status_code < 200:
             raise ValueError(r.content)
 
+    def get_statistics(self, day_range, metric=None, user=None, fields=None):
+        from_day, to_day = day_range
+        url = (self.url + '/api/v2/stats')
+        params = {"from_day": from_day, "to_day": to_day}
+        if metric:
+            params['metric'] = metric
+        if user:
+            params['user'] = user
+        if fields:
+            params['fields'] = ','.join(fields)
+        r = requests.get(url, params=params, headers=self.get_headers())
+        if r.status_code > 299 or r.status_code < 200:
+            raise ValueError(r.content)
+        data = r.json()
+        for item in data["data"]:
+            yield dict(zip(data["header"], item))
+
     def get_object_list(self, modelcls, url=None, **filters):
         """
         Returns the list of objects using the given **kwargs as filters

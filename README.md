@@ -30,4 +30,57 @@ for e in u.get_events('redbutton_click', '2016-05-18'):
 
 # Send an event
 c.send_event("suggestion_click", "user_123", 10)
+
+# Get detailed statistics for a given date range, for all users and metrics
+print list(c.get_statistics(['2015-01-01', '2017-01-01']))
+[{u'avg_value': 15.0,
+  u'count': 1,
+  u'day': u'2016-05-19',
+  u'device_user': u'user1',
+  u'max_value': 15.0,
+  u'metric': u'login',
+  u'min_value': 0.0,
+  u'sum_value': 15.0},
+ {u'avg_value': 15.0,
+  u'count': 1,
+  u'day': u'2016-05-19',
+  u'device_user': u'user2',
+  u'max_value': 15.0,
+  u'metric': u'login',
+  u'min_value': 0.0,
+  u'sum_value': 15.0}]
+
+
+# Get detailed user statistics (regardless of the metric)
+c.get_statistics(['2015-01-01', '2017-01-01'], fields=["user"])
+[{u'avg_value': 15.0,
+  u'count': 1,
+  u'device_user': u'user1',
+  u'max_value': 15.0,
+  u'min_value': 0.0,
+  u'sum_value': 15.0},
+ {u'avg_value': 15.0,
+  u'count': 2,
+  u'device_user': u'user2',
+  u'max_value': 15.0,
+  u'min_value': 0.0,
+  u'sum_value': 30.0}]
+
+# Get detailed metric statistics per day (regardless of the user)
+print list(c.get_statistics(['2015-01-01', '2017-01-01'], fields=["metric", "day"]))
+[{u'avg_value': 15.0,
+  u'count': 3,
+  u'day': u'2016-05-19',
+  u'max_value': 15.0,
+  u'metric': u'login',
+  u'min_value': 0.0,
+  u'sum_value': 45.0},
+ {u'avg_value': 13.75,
+  u'count': 4,
+  u'day': u'2016-05-19',
+  u'max_value': 15.0,
+  u'metric': u'suggestion_click',
+  u'min_value': 0.0,
+  u'sum_value': 55.0}]
+
 ```
