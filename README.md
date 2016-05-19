@@ -52,7 +52,7 @@ print list(c.get_statistics(['2015-01-01', '2017-01-01']))
 
 
 # Get detailed user statistics (regardless of the metric)
-c.get_statistics(['2015-01-01', '2017-01-01'], fields=["user"])
+print list(c.get_statistics(['2015-01-01', '2017-01-01'], fields=["user"]))
 [{u'avg_value': 15.0,
   u'count': 1,
   u'device_user': u'user1',
