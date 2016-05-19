@@ -27,7 +27,7 @@ except:
     pass
 
 setup(name='ureactme',
-      version='0.1.2',
+      version='0.1.3',
       packages=['ureactme', ],
       license='MIT',
       author='Thiago F. Pappacena',

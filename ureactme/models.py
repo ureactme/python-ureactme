@@ -66,7 +66,6 @@ class Event(Model):
         if isinstance(self.created_at, basestring):
             self.created_at = datetime.datetime.strptime(self.created_at,
                                                          DATE_TIME_FORMAT)
-        pass
 
     def __str__(self):
         return "%s (%s; %s)" % (self.created_at, self.value, self.data)

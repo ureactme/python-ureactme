@@ -26,4 +26,8 @@ for u in users:
 u = User(id="user_id_test")
 for e in u.get_events('redbutton_click', '2016-05-18'):
     print e.created_at, e.value, e.data
+
+
+# Send an event
+c.send_event("suggestion_click", "user_123", 10)
 ```

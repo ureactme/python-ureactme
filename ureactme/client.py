@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 import requests
 from .models import ModelList
+import datetime
+import json
 
 
 class Client(object):
@@ -18,6 +20,21 @@ class Client(object):
     def get_headers(self):
         return {"Content-Type": "application/json",
                 "Authorization": "Token %s" % self.token}
+
+    def post(self, url, data):
+        requests.post(url, data, headers=self.get_headers())
+
+    def send_event(self, metric, user, value=None, data=None, date=None):
+        from ureactme.models import Event
+        payload = {"date": date or datetime.datetime.now().isoformat(),
+                   "metric": metric,
+                   "user": user,
+                   "value": value,
+                   "data": data}
+        url = self.url + Event.API_ENDPOINT
+        r = requests.post(url, json.dumps(payload), headers=self.get_headers())
+        if r.status_code > 299 or r.status_code < 200:
+            raise ValueError(r.content)
 
     def get_object_list(self, modelcls, url=None, **filters):
         """
