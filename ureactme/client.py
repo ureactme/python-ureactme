@@ -50,8 +50,8 @@ class Client(object):
         if r.status_code > 299 or r.status_code < 200:
             raise ValueError(r.content)
         data = r.json()
-        for item in data["data"]:
-            yield dict(zip(data["header"], item))
+        for item in data["data"]["body"]:
+            yield dict(zip(data["data"]["header"], item))
 
     def get_object_list(self, modelcls, url=None, **filters):
         """
