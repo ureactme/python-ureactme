@@ -69,3 +69,7 @@ class Event(Model):
 
     def __str__(self):
         return "%s (%s; %s)" % (self.created_at, self.value, self.data)
+
+
+class DayStatistic(Model):
+    pass
