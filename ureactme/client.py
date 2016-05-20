@@ -24,10 +24,13 @@ class Client(object):
     def post(self, url, data):
         requests.post(url, data, headers=self.get_headers())
 
-    def send_event(self, metric, user, value=None, data=None, date=None):
+    def send_event(self, user, category, action, label=None,
+                   value=None, data=None, date=None):
         from ureactme.models import Event
         payload = {"date": date or datetime.datetime.now().isoformat(),
-                   "metric": metric,
+                   "category": category,
+                   "action": action,
+                   "label": label,
                    "user": user,
                    "value": value,
                    "data": data}
