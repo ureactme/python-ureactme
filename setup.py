@@ -27,7 +27,7 @@ except:
     pass
 
 setup(name='ureactme',
-      version='0.2.2',
+      version='0.2.3',
       packages=['ureactme', ],
       license='MIT',
       author='Thiago F. Pappacena',
@@ -35,7 +35,7 @@ setup(name='ureactme',
       url='https://github.com/pappacena/',
       description='UReact.me API lib',
       long_description=long_description,
-      install_requires=['setuptools>=17.1', 'requests',
+      install_requires=['setuptools>=17.1', 'requests', 'python-dateutil',
                         'mock', 'freezegun>=0.3.5'],
       tests_require=['freezegun>=0.3.5'],
       cmdclass={'test': TestCommand},

@@ -1,7 +1,5 @@
 from __future__ import absolute_import
-import datetime
-
-DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+from dateutil.parser import parse as parse_datetime
 
 
 class Model(object):
@@ -64,8 +62,7 @@ class Event(Model):
     def __init__(self, **kwargs):
         super(Event, self).__init__(**kwargs)
         if isinstance(self.created_at, basestring):
-            self.created_at = datetime.datetime.strptime(self.created_at,
-                                                         DATE_TIME_FORMAT)
+            self.created_at = parse_datetime(self.created_at)
 
     def __str__(self):
         return "%s (%s; %s)" % (self.created_at, self.value, self.data)
