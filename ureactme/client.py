@@ -39,13 +39,18 @@ class Client(object):
         if r.status_code > 299 or r.status_code < 200:
             raise ValueError(r.content)
 
-    def get_statistics(self, day_range, metric=None, user=None, fields=None):
+    def get_statistics(self, day_range, category=None, action=None, label=None,
+                       user=None, fields=None):
         from .models import DayStatistic
         from_day, to_day = day_range
-        url = (self.url + '/api/v2/stats')
+        url = (self.url + DayStatistic.API_ENDPOINT)
         params = {"from_day": from_day, "to_day": to_day}
-        if metric:
-            params['metric'] = metric
+        if category is not None:
+            params['metric_category'] = category
+        if action is not None:
+            params['metric_action'] = action
+        if label is not None:
+            params['metric_label'] = label
         if user:
             params['user'] = user
         if fields:
@@ -55,7 +60,6 @@ class Client(object):
             raise ValueError(r.content)
         data = r.json()
 
-        #import ipdb; ipdb.set_trace()
         data["data"] = [dict(zip(data["data"][0], item))
                         for item in data["data"][1:]]
         return ModelList(self, params, data, DayStatistic)

@@ -72,4 +72,4 @@ class Event(Model):
 
 
 class DayStatistic(Model):
-    pass
+    API_ENDPOINT = '/api/v2/stats'
