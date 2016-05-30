@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import requests
 from .models import ModelList
+from dateutil.tz import tzlocal
 import datetime
 import json
 
@@ -27,7 +28,8 @@ class Client(object):
     def send_event(self, user, category, action, label=None,
                    value=None, data=None, date=None):
         from ureactme.models import Event
-        payload = {"date": date or datetime.datetime.now().isoformat(),
+        now = datetime.datetime.now(tzlocal())
+        payload = {"date": date or now.isoformat(),
                    "category": category,
                    "action": action,
                    "label": label,
