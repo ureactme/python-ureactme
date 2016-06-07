@@ -62,8 +62,6 @@ class Client(object):
             raise ValueError(r.content)
         data = r.json()
 
-        data["data"] = [dict(zip(data["data"][0], item))
-                        for item in data["data"][1:]]
         return ModelList(self, params, data, DayStatistic)
 
     def get_object_list(self, modelcls, url=None, **filters):
