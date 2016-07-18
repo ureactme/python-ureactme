@@ -7,6 +7,16 @@ class Model(object):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+    @classmethod
+    def get_by_id(cls, id):
+        from . import client
+        return client.Client().get_object_list(cls, id__eq=id)
+
+    @classmethod
+    def get_list(cls, **filter):
+        from . import client
+        return client.Client().get_object_list(cls, **filter)
+
 
 class ModelList(object):
     def __init__(self, client, filters, payload, modelcls):
