@@ -10,7 +10,7 @@ class Model(object):
     @classmethod
     def get_by_id(cls, id):
         from . import client
-        return client.Client().get_object_list(cls, id__eq=id)
+        return list(client.Client().get_object_list(cls, id__eq=id))[0]
 
     @classmethod
     def get_list(cls, **filter):
