@@ -49,10 +49,11 @@ class ModelList(object):
 class User(Model):
     API_ENDPOINT = "/api/v2/user"
 
-    def get_events(self, metric, date):
+    def get_events(self, **filters):
+        """Accepted filters:
+        category=None, action=None, label=None, min_date=None, max_date=None
+        """
         from . import client
-        metric_id = metric.id if isinstance(metric, Metric) else metric
-        filters = {"metric": metric_id, "user": self.id, "day": date}
         return client.Client().get_object_list(Event, **filters)
 
     def __str__(self):
@@ -71,11 +72,11 @@ class Event(Model):
 
     def __init__(self, **kwargs):
         super(Event, self).__init__(**kwargs)
-        if isinstance(self.created_at, basestring):
-            self.created_at = parse_datetime(self.created_at)
+        if isinstance(self.date, basestring):
+            self.date = parse_datetime(self.date)
 
     def __str__(self):
-        return "%s (%s; %s)" % (self.created_at, self.value, self.data)
+        return "%s (%s; %s)" % (self.date, self.value, self.data)
 
 
 class DayStatistic(Model):
